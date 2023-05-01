@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Time Code Input</title>
+</head>
+<body>
+    <one-time-code-input></one-time-code-input>
+
+    <script>
+        class OneTimeCodeInput extends HTMLElement {
+            constructor() {
+                super();
+
+                const shadowRoot = this.attachShadow({ mode: 'open' });
+
+                // Create the input element
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.maxLength = 6;
+                input.pattern = '\\d{6}';
+                input.required = true;
+                input.style.width = '100%';
+                input.placeholder = 'Enter 6-digit one-time code';
+                input.setAttribute('inputmode', 'numeric');
+                input.setAttribute('autocomplete', 'one-time-code');
+
+                // Create the style tag
+                const style = document.createElement('style');
+                style.textContent = `
+                    input {
+                        font-size: 1.2rem;
+                        padding: 8px 12px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+                    input:focus {
+                        outline: none;
+                        border-color: #0077ff;
+                    }
+                `;
+
+                // Add input and style elements to the shadow root
+                shadowRoot.appendChild(style);
+                shadowRoot.appendChild(input);
+            }
+        }
+
+        // Define the custom element
+        customElements.define('one-time-code-input', OneTimeCodeInput);
+    </script>
+</body>
+</html>
